@@ -1,6 +1,6 @@
-// firebaseConfig.js
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCtn4CkWkSceqfTSTdWhmy0GXbibGIxkRE",
@@ -16,6 +16,9 @@ const app = initializeApp(firebaseConfig);
 
 // Firebase Authインスタンスの作成
 export const auth = getAuth(app);
+
+// Firebase Firestoreインスタンスの作成
+export const db = getFirestore(app);
 
 // ログイン処理のための関数（ログイン用）
 export const login = async (email, password) => {

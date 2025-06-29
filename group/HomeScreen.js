@@ -1,5 +1,5 @@
 // group/HomeScreen.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Button, StyleSheet, Image, ActivityIndicator, Text } from 'react-native';
 import { getFirestore, doc, onSnapshot } from 'firebase/firestore';
 import { app } from './firebaseConfig';
@@ -8,6 +8,7 @@ export default function HomeScreen({ navigation, route }) {
   const { uid, displayName } = route.params;
   const [iconUrl, setIconUrl] = useState(null);
   const [loading, setLoading] = useState(true);
+
 
   const db = getFirestore(app);
 
@@ -40,6 +41,9 @@ export default function HomeScreen({ navigation, route }) {
           <Text style={styles.placeholderText}>{displayName.charAt(0)}</Text>
         </View>
       )}
+
+      {/* ✅ Context から取得した値を表示 */}
+      <Text style={styles.contextText}>ユーザーID:{displayName }</Text>
 
       <Button
         title="アイコン設定"
@@ -86,5 +90,10 @@ const styles = StyleSheet.create({
   },
   spacer: {
     height: 16,
+  },
+  contextText: {
+    marginVertical: 12,
+    fontSize: 16,
+    color: '#333',
   },
 });
