@@ -1,5 +1,6 @@
 // firebaseConfig.js
 import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCtn4CkWkSceqfTSTdWhmy0GXbibGIxkRE",
@@ -10,4 +11,32 @@ const firebaseConfig = {
   appId: "1:998409866183:android:c05dfa9d17abf03733e7e2"
 };
 
-export const app = initializeApp(firebaseConfig);
+// Firebaseアプリの初期化
+const app = initializeApp(firebaseConfig);
+
+// Firebase Authインスタンスの作成
+export const auth = getAuth(app);
+
+// ログイン処理のための関数（ログイン用）
+export const login = async (email, password) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    console.log('ログイン成功:', userCredential);
+    return userCredential;
+  } catch (error) {
+    console.error('ログイン失敗:', error);
+    throw error;
+  }
+};
+
+// サインアップ処理のための関数（新規登録用）
+export const signUp = async (email, password) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    console.log('サインアップ成功:', userCredential);
+    return userCredential;
+  } catch (error) {
+    console.error('サインアップ失敗:', error);
+    throw error;
+  }
+};
